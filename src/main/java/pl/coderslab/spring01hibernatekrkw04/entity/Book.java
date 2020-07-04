@@ -1,9 +1,10 @@
 package pl.coderslab.spring01hibernatekrkw04.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,13 +14,8 @@ public class Book {
     private String description;
     @ManyToOne
     private Publisher publisher;
-
-    public Book(Long id, String title, Integer rating, String description) {
-        this.id = id;
-        this.title = title;
-        this.rating = rating;
-        this.description = description;
-    }
+    @ManyToMany
+    private List<Author> authors = new ArrayList<>();
 
     public Book() {
     }
@@ -62,5 +58,13 @@ public class Book {
 
     public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 }
