@@ -16,4 +16,8 @@ public class AuthorDao {
     public void create(Author author){
         em.persist(author);
     }
+
+    public Author getById(Long authorId) {
+        return this.em.find(Author.class, authorId);
+    }
 }
