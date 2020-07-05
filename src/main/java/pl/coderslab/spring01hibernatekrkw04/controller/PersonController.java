@@ -2,6 +2,7 @@ package pl.coderslab.spring01hibernatekrkw04.controller;
 
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrkw04.dao.AuthorDao;
 import pl.coderslab.spring01hibernatekrkw04.dao.BookDao;
@@ -37,6 +38,21 @@ public class PersonController {
                                 .setEmail(email)
                                 .setPassword(password);
 
+        personDao.create(person);
+
+        return person;
+    }
+
+    @GetMapping("/formBind")
+    public String formBind(Model m){
+        m.addAttribute(new Person().setLogin("example"));
+
+        return "person/formBind";
+    }
+
+    @PostMapping("/formBind")
+    @ResponseBody
+    public Person formBindPost(@ModelAttribute Person person){
         personDao.create(person);
 
         return person;
