@@ -47,4 +47,8 @@ public class Author {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
+    }
 }
