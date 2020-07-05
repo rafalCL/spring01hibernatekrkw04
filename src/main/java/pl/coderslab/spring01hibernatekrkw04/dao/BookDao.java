@@ -1,6 +1,7 @@
 package pl.coderslab.spring01hibernatekrkw04.dao;
 
 import org.springframework.stereotype.Repository;
+import pl.coderslab.spring01hibernatekrkw04.entity.Author;
 import pl.coderslab.spring01hibernatekrkw04.entity.Book;
 
 import javax.persistence.EntityManager;
@@ -32,5 +33,11 @@ public class BookDao {
         return q.getResultList();
     }
 
+    public List<Book> getByAuthor(Author author){
+        Query q = this.em.createQuery("SELECT b FROM Book b WHERE :author MEMBER OF b.authors");
+        q.setParameter("author", author);
+
+        return q.getResultList();
+    }
 
 }

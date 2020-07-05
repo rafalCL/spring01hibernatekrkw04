@@ -75,4 +75,17 @@ public class BookController {
 
         return str;
     }
+
+    @GetMapping("/byAuthor/{id}")
+    @ResponseBody
+    public String byAuthor(@PathVariable long id){
+        Author author = authorDao.getById(id);
+        List<Book> books = bookDao.getByAuthor(author);
+
+        String str = books.stream()
+                .map(Book::toString)
+                .collect(Collectors.joining(", \r\n<br>"));
+
+        return str;
+    }
 }
