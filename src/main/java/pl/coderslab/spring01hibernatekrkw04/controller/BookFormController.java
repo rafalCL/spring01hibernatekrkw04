@@ -28,15 +28,8 @@ public class BookFormController {
     }
 
     @GetMapping("/all")
-    @ResponseBody
     public String showAll(){
-        List<Book> books = bookDao.readAll();
-
-        String str = books.stream()
-                .map(Book::toString)
-                .collect(Collectors.joining(", \r\n<br>"));
-
-        return str;
+        return "book/list";
     }
 
     @GetMapping("/addForm")
@@ -61,5 +54,10 @@ public class BookFormController {
     @ModelAttribute("authors")
     public List<Author> authors(){
         return authorDao.readAll();
+    }
+
+    @ModelAttribute("books")
+    public List<Book> books(){
+        return bookDao.readAll();
     }
 }
