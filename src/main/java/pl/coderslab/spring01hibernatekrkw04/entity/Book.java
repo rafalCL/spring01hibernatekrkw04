@@ -1,6 +1,12 @@
 package pl.coderslab.spring01hibernatekrkw04.entity;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +15,20 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Size(min = 5)
     private String title;
+    @Range(min = 1, max = 10)
     private Integer rating;
+    @Size(max = 600)
     private String description;
     @ManyToOne
+    @NotNull
     private Publisher publisher;
     @ManyToMany(fetch = FetchType.EAGER)
+    @NotEmpty
     private List<Author> authors = new ArrayList<>();
+    @Min(2)
+    private Integer pages;
 
     public Book() {
     }
@@ -24,48 +37,63 @@ public class Book {
         return id;
     }
 
-    public void setId(Long id) {
+    public Book setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Book setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public Integer getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public Book setRating(Integer rating) {
         this.rating = rating;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Book setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(Publisher publisher) {
+    public Book setPublisher(Publisher publisher) {
         this.publisher = publisher;
+        return this;
     }
 
     public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Author> authors) {
+    public Book setAuthors(List<Author> authors) {
         this.authors = authors;
+        return this;
+    }
+
+    public Integer getPages() {
+        return pages;
+    }
+
+    public Book setPages(Integer pages) {
+        this.pages = pages;
+        return this;
     }
 
     @Override
