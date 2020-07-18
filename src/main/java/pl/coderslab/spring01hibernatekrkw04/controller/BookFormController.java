@@ -2,6 +2,8 @@ package pl.coderslab.spring01hibernatekrkw04.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrkw04.dao.AuthorDao;
 import pl.coderslab.spring01hibernatekrkw04.dao.BookDao;
@@ -40,7 +42,12 @@ public class BookFormController {
     }
 
     @PostMapping("/addForm")
-    public String addFormPost(@ModelAttribute Book book){
+    public String addFormPost(@ModelAttribute("book") @Validated Book book,
+                              BindingResult errors){
+        if (errors.hasErrors()){
+            return "/book/addForm";
+        }
+
         bookDao.create(book);
 
         return "redirect:all";
