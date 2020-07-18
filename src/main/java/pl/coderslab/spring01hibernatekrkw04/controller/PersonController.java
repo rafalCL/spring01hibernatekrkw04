@@ -3,6 +3,8 @@ package pl.coderslab.spring01hibernatekrkw04.controller;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrkw04.dao.AuthorDao;
 import pl.coderslab.spring01hibernatekrkw04.dao.BookDao;
@@ -51,10 +53,13 @@ public class PersonController {
     }
 
     @PostMapping("/formBind")
-    @ResponseBody
-    public Person formBindPost(@ModelAttribute Person person){
+    public String formBindPost(@ModelAttribute("person") @Validated Person person,
+                               BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "person/formBind";
+        }
         personDao.create(person);
 
-        return person;
+        return "person/details";
     }
 }
