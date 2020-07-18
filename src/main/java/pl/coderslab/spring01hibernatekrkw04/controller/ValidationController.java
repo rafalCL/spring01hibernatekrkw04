@@ -14,7 +14,7 @@ import java.util.Set;
 
 
 @Controller
-@RequestMapping("/validation")
+@RequestMapping(value = "/validation", produces = "text/html; charset=UTF-8")
 public class ValidationController {
     @Autowired
     private Validator validator;
@@ -22,7 +22,7 @@ public class ValidationController {
     @GetMapping("/validateBook")
     @ResponseBody
     public String validateBook(){
-        Book b = new Book().setPublisher(new Publisher());
+        Book b = new Book();
         Set<ConstraintViolation<Book>> errors = validator.validate(b);
         if(errors.isEmpty()){
             return "Zapis książki: " + b.toString();
@@ -32,7 +32,7 @@ public class ValidationController {
                 msg += err.getPropertyPath()
                         + " : " + err.getInvalidValue()
                         + " : " + err.getMessage()
-                        + "<br>\r\n";
+                        + "<br/>\r\n";
             }
 
             return msg;

@@ -18,7 +18,7 @@ public class Book {
     @Size(min = 5)
     private String title;
     @Range(min = 1, max = 10)
-    private Integer rating;
+    private int rating;
     @Size(max = 600)
     private String description;
     @ManyToOne
@@ -28,7 +28,7 @@ public class Book {
     @NotEmpty
     private List<Author> authors = new ArrayList<>();
     @Min(2)
-    private Integer pages;
+    private int pages;
 
     public Book() {
     }
@@ -51,11 +51,11 @@ public class Book {
         return this;
     }
 
-    public Integer getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public Book setRating(Integer rating) {
+    public Book setRating(int rating) {
         this.rating = rating;
         return this;
     }
@@ -87,11 +87,11 @@ public class Book {
         return this;
     }
 
-    public Integer getPages() {
+    public int getPages() {
         return pages;
     }
 
-    public Book setPages(Integer pages) {
+    public Book setPages(int pages) {
         this.pages = pages;
         return this;
     }
