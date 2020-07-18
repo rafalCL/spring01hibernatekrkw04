@@ -1,6 +1,7 @@
 package pl.coderslab.spring01hibernatekrkw04.entity;
 
 import pl.coderslab.spring01hibernatekrkw04.validator.IsOver18YO;
+import pl.coderslab.spring01hibernatekrkw04.validator.IsOverXYO;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,8 @@ public class Person {
     private String login;
     private String password;
     private String email;
-    @IsOver18YO
+//    @IsOver18YO
+    @IsOverXYO(8)
     private int yearOfBirth;
 
     public Person() {
@@ -65,5 +67,16 @@ public class Person {
     public Person setYearOfBirth(int yearOfBirth) {
         this.yearOfBirth = yearOfBirth;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", yearOfBirth=" + yearOfBirth +
+                '}';
     }
 }
