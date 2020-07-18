@@ -24,18 +24,31 @@ public class ValidationController {
     public String validateBook(){
         Book b = new Book();
         Set<ConstraintViolation<Book>> errors = validator.validate(b);
-        if(errors.isEmpty()){
-            return "Zapis książki: " + b.toString();
-        } else {
-            String msg = "Nie można zapisać. Błędy walidacji: <br/>\r\n";
-            for (ConstraintViolation<Book> err : errors){
-                msg += err.getPropertyPath()
-                        + " : " + err.getInvalidValue()
-                        + " : " + err.getMessage()
-                        + "<br/>\r\n";
-            }
+        return jsonify(errors);
 
-            return msg;
+//        if(errors.isEmpty()){
+//            return "Zapis książki: " + b.toString();
+//        } else {
+//            String msg = "Nie można zapisać. Błędy walidacji: <br/>\r\n";
+//            for (ConstraintViolation<Book> err : errors){
+//                msg += err.getPropertyPath()
+//                        + " : " + err.getInvalidValue()
+//                        + " : " + err.getMessage()
+//                        + "<br/>\r\n";
+//            }
+//            return msg;
+//        }
+    }
+
+    private String jsonify(Set<ConstraintViolation<Book>> errors){
+        String json = "[";
+        for (ConstraintViolation<Book> err : errors){
+            json += "{\"propertyPath\" : \"" + err.getPropertyPath()
+                    + "\", \"invalidValue\" : \"" + err.getInvalidValue()
+                    + "\", \"message\" : \"" + err.getMessage()
+                    + "\"},\r\n";
         }
+        json += "]";
+        return json;
     }
 }
