@@ -87,4 +87,28 @@ public class BookController {
 
         return str;
     }
+
+    @GetMapping("/byCategoryId/{id}")
+    @ResponseBody
+    public String byCategoryId(@PathVariable long id){
+        List<Book> books = bookRepository.findByCategoryId(id);
+
+        String str = books.stream()
+                .map(Book::toString)
+                .collect(Collectors.joining(", \r\n<br>"));
+
+        return str;
+    }
+
+    @GetMapping("/byCategoryName/{name}")
+    @ResponseBody
+    public String byCategoryName(@PathVariable String name){
+        List<Book> books = bookRepository.findByCategoryName(name);
+
+        String str = books.stream()
+                .map(Book::toString)
+                .collect(Collectors.joining(", \r\n<br>"));
+
+        return str;
+    }
 }

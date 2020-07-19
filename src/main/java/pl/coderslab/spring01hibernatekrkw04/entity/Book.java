@@ -32,6 +32,8 @@ public class Book {
     @Min(2)
     private int pages;
     private boolean proposition;
+    @ManyToOne
+    private Category category;
 
     public Book() {
     }
@@ -105,6 +107,15 @@ public class Book {
 
     public Book setProposition(boolean proposition) {
         this.proposition = proposition;
+        return this;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public Book setCategory(Category category) {
+        this.category = category;
         return this;
     }
 
