@@ -15,11 +15,13 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Size(min = 5)
+    @Size(min = 5, groups = {javax.validation.groups.Default.class,
+    pl.coderslab.spring01hibernatekrkw04.validator.PropositionValidationGroup.class})
     private String title;
     @Range(min = 1, max = 10)
     private int rating;
-    @Size(max = 600)
+    @Size(max = 600, groups = {javax.validation.groups.Default.class,
+            pl.coderslab.spring01hibernatekrkw04.validator.PropositionValidationGroup.class})
     private String description;
     @ManyToOne
     @NotNull
@@ -29,6 +31,7 @@ public class Book {
     private List<Author> authors = new ArrayList<>();
     @Min(2)
     private int pages;
+    private boolean proposition;
 
     public Book() {
     }
@@ -93,6 +96,15 @@ public class Book {
 
     public Book setPages(int pages) {
         this.pages = pages;
+        return this;
+    }
+
+    public boolean isProposition() {
+        return proposition;
+    }
+
+    public Book setProposition(boolean proposition) {
+        this.proposition = proposition;
         return this;
     }
 

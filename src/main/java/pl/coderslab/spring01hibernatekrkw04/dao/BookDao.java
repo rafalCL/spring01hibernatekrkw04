@@ -40,4 +40,9 @@ public class BookDao {
         return q.getResultList();
     }
 
+    public List<Book> readAllPropositions(){
+        Query q = this.em.createQuery("SELECT b FROM Book b WHERE b.proposition=true");
+
+        return q.getResultList();
+    }
 }
