@@ -65,6 +65,28 @@ public class PropositionController {
         return "redirect:../all";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model m){
+        Book book = bookDao.findById(id);
+        m.addAttribute("proposition", book);
+
+        return "/proposition/addForm";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editPost(@ModelAttribute("proposition") @Validated({PropositionValidationGroup.class}) Book book,
+                              BindingResult errors){
+        if (errors.hasErrors()){
+            return "/proposition/addForm";
+        }
+
+        book.setProposition(true);
+
+        bookDao.update(book);
+
+        return "redirect:../all";
+    }
+
     @ModelAttribute("propositions")
     public List<Book> propositions(){
         return bookDao.readAllPropositions();

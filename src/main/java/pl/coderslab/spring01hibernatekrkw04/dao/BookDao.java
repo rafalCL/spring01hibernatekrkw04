@@ -59,4 +59,8 @@ public class BookDao {
     public Book findById(Long id) {
         return this.em.find(Book.class, id);
     }
+
+    public void update(Book book) {
+        em.merge(book);
+    }
 }
