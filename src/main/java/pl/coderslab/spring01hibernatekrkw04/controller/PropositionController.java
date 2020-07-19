@@ -58,6 +58,13 @@ public class PropositionController {
         return "redirect:all";
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+        bookDao.deleteById(id);
+
+        return "redirect:../all";
+    }
+
     @ModelAttribute("propositions")
     public List<Book> propositions(){
         return bookDao.readAllPropositions();

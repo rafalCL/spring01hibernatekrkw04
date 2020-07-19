@@ -45,4 +45,18 @@ public class BookDao {
 
         return q.getResultList();
     }
+
+    public void delete(Book book) {
+        em.remove(em.contains(book) ? book : em.merge(book));
+    }
+
+    public void deleteById(Long id) {
+        Book book = findById(id);
+
+        delete(book);
+    }
+
+    public Book findById(Long id) {
+        return this.em.find(Book.class, id);
+    }
 }

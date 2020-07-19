@@ -14,9 +14,16 @@
 <body>
 <h1>Propozycje ksiazek:</h1>
 <ul>
+    <table border="1">
+        <tr><th>Title</th><th>Description</th><th>Actions</th></tr>
     <c:forEach items="${propositions}" var="b">
-        <li>${b.title}, ${b.description}</li>
+        <tr>
+            <td>${b.title}</td>
+            <td>${b.description}</td>
+            <td><a href="<c:url value="/proposition/edit/${b.id}"/>">Edit</a> <a href="<c:url value="/proposition/delete/${b.id}"/>">Delete</a></td>
+        </tr>
     </c:forEach>
+    </table>
 </ul>
 </body>
 </html>
