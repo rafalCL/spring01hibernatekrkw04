@@ -5,7 +5,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
     <persistence-unit name="bookstorePersistenceUnit">
-        <validation-mode>NONE</validation-mode>
+<!--        <validation-mode>NONE</validation-mode>-->
         <properties>
             <property name="javax.persistence.jdbc.url"
                       value="jdbc:mysql://localhost:3306/bookStoreKrkW04?serverTimezone=UTC"/>
@@ -23,6 +23,10 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.MySQL57Dialect" />
             <property name="hibernate.connection.characterEncoding" value="utf8" />
+
+            <property name="javax.persistence.validation.group.pre-persist" value="pl.coderslab.spring01hibernatekrkw04.validator.PropositionValidationGroup"></property>
+<!--            <property name="javax.persistence.validation.group.pre-update" value="pl.coderslab.spring01hibernatekrkw04.validator.PropositionValidationGroup"></property>-->
+<!--            <property name="javax.persistence.validation.group.pre-remove" value="pl.coderslab.spring01hibernatekrkw04.validator.PropositionValidationGroup"></property>-->
         </properties>
     </persistence-unit>
 
