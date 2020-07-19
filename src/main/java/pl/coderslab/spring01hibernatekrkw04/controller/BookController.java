@@ -6,26 +6,25 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.spring01hibernatekrkw04.dao.AuthorDao;
-import pl.coderslab.spring01hibernatekrkw04.dao.BookDao;
 import pl.coderslab.spring01hibernatekrkw04.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrkw04.entity.Author;
 import pl.coderslab.spring01hibernatekrkw04.entity.Book;
 import pl.coderslab.spring01hibernatekrkw04.entity.Publisher;
+import pl.coderslab.spring01hibernatekrkw04.repository.BookRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/book")
 public class BookController {
-    private BookDao bookDao;
+    private BookRepository bookRepository;
     private PublisherDao publisherDao;
     private AuthorDao authorDao;
 
-    public BookController(BookDao bookDao, PublisherDao publisherDao,
+    public BookController(BookRepository bookRepository, PublisherDao publisherDao,
                           AuthorDao authorDao) {
-        this.bookDao = bookDao;
+        this.bookRepository = bookRepository;
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
     }
@@ -47,7 +46,7 @@ public class BookController {
         book.setPublisher(publisher);
         book.getAuthors().add(author);
 
-        bookDao.create(book);
+        bookRepository.save(book);
 
         return "dodano";
     }
@@ -55,7 +54,7 @@ public class BookController {
     @GetMapping("/all")
     @ResponseBody
     public String showAll(){
-        List<Book> books = bookDao.readAll();
+        List<Book> books = bookRepository.findAll();
 
         String str = books.stream()
                 .map(Book::toString)
@@ -67,7 +66,7 @@ public class BookController {
     @GetMapping("/byRating/{rating}")
     @ResponseBody
     public String byRating(@PathVariable int rating){
-        List<Book> books = bookDao.getRatingList(rating);
+        List<Book> books = bookRepository.findByRatingGreaterThanEqual(rating);
 
         String str = books.stream()
                 .map(Book::toString)
@@ -80,7 +79,7 @@ public class BookController {
     @ResponseBody
     public String byAuthor(@PathVariable long id){
         Author author = authorDao.getById(id);
-        List<Book> books = bookDao.getByAuthor(author);
+        List<Book> books = bookRepository.findByAuthors(author);
 
         String str = books.stream()
                 .map(Book::toString)
